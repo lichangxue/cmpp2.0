@@ -1,0 +1,691 @@
+<?php if(!class_exists("View", false)) exit("no direct access allowed");?><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CMPP 2.0-数据接口</title>
+<link rel="stylesheet" href="//p1.renbenzhihui.com/amis/sdk6.0.0/sdk/sdk.css" />
+<link rel="stylesheet" href="//p1.renbenzhihui.com/amis/sdk6.0.0/sdk/helper.css" />
+<link rel="stylesheet" href="//p1.renbenzhihui.com/amis/sdk6.0.0/sdk/iconfont.css" />
+<link rel="stylesheet" href="//p1.renbenzhihui.com/amis/sdk6.0.0/sdk/antd.css" />
+<style>
+    html,
+    body,
+    .app-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+	.card-title {
+		white-space: pre-line !important;
+	}
+  </style>
+</head>
+<body>
+    <div id="root" class="app-wrapper"></div>
+    <script src="//p1.renbenzhihui.com/amis/sdk6.0.0/sdk/sdk.js"></script>
+    <script src="/i/public/js/jquery-3.7.1.min.js" charset="utf-8"></script>
+    <script src="/i/public/js/jquery.cookie.js" charset="utf-8"></script>
+
+    <script type="text/javascript">
+      (function () {
+        let amis = amisRequire('amis/embed');
+        // 通过替换下面这个配置来生成不同页面
+        let amisJSON = {
+            "type": "page",
+            "title": "所有表单列表",
+            "body": [
+                        {
+                        "type": "collapse-group",
+                        "activeKey": [
+                            "1"
+                        ],
+                        "body": [
+                            {
+                            "type": "collapse",
+                            "key": "1",
+                            "active": true,
+                            "header": "GET 从数据分页查询",
+                            "body": [
+                                {
+                                "type": "card",
+                                "header": {
+                                    "title": "返回格式",
+                                    "subTitle": ""
+                                },
+                                "body": [                                    
+                                    {
+                                        "name":"form_page",
+                                    "id": "u:bb1c74e15817",
+                                    "type": "form",
+                                    "title": "沙箱测试",
+                                    "mode": "flex",
+                                    "labelAlign": "top",
+                                    "dsType": "api",
+                                    "feat": "Edit",
+                                    "body": [
+                                        {
+                                        "type": "input-text",
+                                        "label": "From",
+                                        "name": "from",
+                                        "row": 0,
+                                        "id": "u:870558f97345",
+                                        "value": "db",
+                                        "description": "db:从数据库搜索",
+                                        "required": true
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "nodeId",
+                                        "name": "nodeId",
+                                        "row": 1,
+                                        "id": "u:98813318569d",
+                                        "value": "${nodeid}",
+                                        "description": "业务节点ID",
+                                        "required": true
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "formId",
+                                        "name": "formId",
+                                        "row": 2,
+                                        "id": "u:74aa4d86aef1",
+                                        "value": "${formId}",
+                                        "description": "表单ID",
+                                        "required": true
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "fields",
+                                        "name": "fields",
+                                        "row": 3,
+                                        "id": "u:de95a2f16144",
+                                        "placeholder": "必填",
+                                        "description": "需要返回的字段。例如:id,title,category或*",
+                                        "required": true
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "where",
+                                        "name": "where",
+                                        "row": 4,
+                                        "id": "u:ac9a6c8d622a",
+                                        "placeholder": ""
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "sorts",
+                                        "name": "sorts",
+                                        "row": 5,
+                                        "id": "u:af66a468ac6c",
+                                        "description": "排序。填写sql select语句的order by部分。例如：id desc"
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "start",
+                                        "name": "start",
+                                        "row": 6,
+                                        "id": "u:dc7904ed74f2",
+                                        "description": "start是指记录开始的index"
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "limit",
+                                        "name": "limit",
+                                        "row": 7,
+                                        "id": "u:eb7f95a11ebb",
+                                        "description": "limit是指从第start+1条开始,取limit条,最大1000条"
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "callback",
+                                        "name": "callback",
+                                        "row": 8,
+                                        "id": "u:403cd6e770e0",
+                                        "description": "JSONP回调函数名。使用JSONP方式请求数据时需要填写"
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "ext",
+                                        "name": "ext",
+                                        "row": 9,
+                                        "id": "u:cbca1639faae",
+                                        "description": "JSONP回调函数的附加参数。例如：'param1','param2'"
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "请求URL",
+                                        "name": "requrl_getpage",
+                                        "row": 10,
+                                        "id": "u:3155f669ec5b",
+                                        "addOn": {
+                                            "label": "复制",
+                                            "type": "button",
+                                            "icon": "fa fa-slideshare",
+                                            "level": "primary",
+                                            "id": "u:9c2913f02167"
+                                        },
+                                        "readOnly": true
+                                        },
+                                        {
+                                        "type": "editor",
+                                        "label": "响应结果",
+                                        "name": "requrl_getpage_res",
+                                        "row": 11,
+                                        "id": "u:e788406e7671",
+                                        "language": "json"
+                                        }
+                                    ],
+                                    "api": {
+                                        "url": "提交接口",
+                                        "method": "get"
+                                    },
+                                    "actions": [
+                                        {
+                                        "type": "button",
+                                        "label": "提交",
+                                        "onEvent": {
+                                            "click": {
+                                            "actions": [
+                                                {
+                                                "actionType": "submit",
+                                                "componentId": "u:bb1c74e15817"
+                                                }
+                                            ]
+                                            }
+                                        },
+                                        "level": "primary",
+                                        "id": "u:2faefb23c7f2"
+                                        }
+                                    ],
+                                    "resetAfterSubmit": true
+                                    },
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "",
+                                    "inline": true,
+                                    "wrapperComponent": "",
+                                    "label": "JSON",
+                                    "id": "u:c4e8a299edcf",
+                                    "labelClassName": "text-md text-info"
+                                    },
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "<pre><span style=\"background-color: rgb(251, 238, 184);\"><code class=\"json\">{\n\t\n\t\"data\":[{\n\t  \"<span class=\"attribute\">id</span>\": <span class=\"value\"><span class=\"string\">\"integer\"</span></span>,\n\t  \"<span class=\"attribute\">fields1</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n\t  \"<span class=\"attribute\">fields2</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n\t  \"<span class=\"attribute\">...</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n\t  \"<span class=\"attribute\">...</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>\n\t},{...},{...}]\n}</code></span></pre>",
+                                    "inline": true,
+                                    "label": "",
+                                    "id": "u:0603d480beb7",
+                                    "themeCss": {
+                                        "baseControlClassName": {
+                                        "background:default": "var(--colors-warning-6)"
+                                        }
+                                    }
+                                    },
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "",
+                                    "inline": true,
+                                    "wrapperComponent": "",
+                                    "label": "JSONP",
+                                    "id": "u:cd38d8bcaaf3",
+                                    "labelClassName": "text-info text-md"
+                                    },
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "<pre><span style=\"background-color: rgb(251, 238, 184);\"><code class=\"json\">callback({\n\t\n\t\"data\":[{\n\t  \"<span class=\"attribute\">id</span>\": <span class=\"value\"><span class=\"string\">\"integer\"</span></span>,\n\t  \"<span class=\"attribute\">fields1</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n\t  \"<span class=\"attribute\">fields2</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n\t  \"<span class=\"attribute\">...</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n\t  \"<span class=\"attribute\">...</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>\n\t},{...},{...}]\n},param1,param2,...)</code></span></pre>",
+                                    "inline": true,
+                                    "label": "",
+                                    "id": "u:fb04273fb4e2"
+                                    },
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "",
+                                    "inline": true,
+                                    "wrapperComponent": "",
+                                    "label": "异常返回",
+                                    "id": "u:21890c32bebc",
+                                    "labelClassName": "text-md text-info"
+                                    },
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "<pre><span style=\"background-color: rgb(251, 238, 184);\"><code class=\"json\">{\n\t\"success\":<span class=\"value\"><span class=\"string\">\"boolean\"</span></span>,\n\t\"message\":<span class=\"value\"><span class=\"string\">\"string\"</span>//错误信息</span>\n}</code></span></pre>",
+                                    "inline": true,
+                                    "label": "",
+                                    "id": "u:93667803e970"
+                                    }
+                                ],
+                                "actions": [
+                                    {
+                                    "type": "button",
+                                    "label": "",
+                                    "actionType": "dialog",
+                                    "dialog": {
+                                        "title": "标题",
+                                        "body": "内容"
+                                    },
+                                    "id": "u:a2025cb355b4"
+                                    }
+                                ],
+                                "id": "u:52f1835fc815",
+                                "titleClassName": "font-bold text-primary"
+                                }
+                            ],
+                            "id": "u:079ad0758dce"
+                            },
+                            {
+                            "type": "collapse",
+                            "header": "GET 根据数据ID查询完整数据",
+                            "body": [
+                                {
+                                "type": "card",
+                                "header": "标题2",
+                                "body": [
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "",
+                                    "inline": true,
+                                    "wrapperComponent": "",
+                                    "label": "JSON",
+                                    "id": "u:3064e9b69d47",
+                                    "labelClassName": "text-md text-info"
+                                    },
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "<pre><span style=\"background-color: rgb(251, 238, 184);\"><code class=\"json\">{\n  \"<span class=\"attribute\">id</span>\": <span class=\"value\"><span class=\"string\">\"integer\"</span></span>,\n  \"<span class=\"attribute\">fields1</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n  \"<span class=\"attribute\">fields2</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n  \"<span class=\"attribute\">...</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n  \"<span class=\"attribute\">...</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>\n}</code></span></pre>",
+                                    "inline": true,
+                                    "label": "",
+                                    "id": "u:16060aa872b6",
+                                    "themeCss": {
+                                        "baseControlClassName": {
+                                        "background:default": "var(--colors-warning-6)"
+                                        }
+                                    },
+                                    "editorSetting": {
+                                        "mock": {}
+                                    }
+                                    },
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "",
+                                    "inline": true,
+                                    "wrapperComponent": "",
+                                    "label": "JSONP",
+                                    "id": "u:0449576afc4f",
+                                    "labelClassName": "text-info text-md"
+                                    },
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "<pre><span style=\"background-color: rgb(251, 238, 184);\"><code class=\"json\">callback({\n  \"<span class=\"attribute\">id</span>\": <span class=\"value\"><span class=\"string\">\"integer\"</span></span>,\n  \"<span class=\"attribute\">fields1</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n  \"<span class=\"attribute\">fields2</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n  \"<span class=\"attribute\">...</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n  \"<span class=\"attribute\">...</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>\n},param1,param2,...)</code></span></pre>",
+                                    "inline": true,
+                                    "label": "",
+                                    "id": "u:c79f89076b9f"
+                                    },
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "",
+                                    "inline": true,
+                                    "wrapperComponent": "",
+                                    "label": "异常返回",
+                                    "id": "u:9daaa351c816",
+                                    "labelClassName": "text-md text-info"
+                                    },
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "<pre><span style=\"background-color: rgb(251, 238, 184);\"><code class=\"json\">{\n\t\"success\":<span class=\"value\"><span class=\"string\">\"boolean\"</span></span>,\n\t\"message\":<span class=\"value\"><span class=\"string\">\"string\"</span>//错误信息</span>\n}</code></span></pre>",
+                                    "inline": true,
+                                    "label": "",
+                                    "id": "u:d15762d5ea29"
+                                    },
+                                    {
+                                    "id": "u:6525af3d8223",
+                                    "type": "form",
+                                    "name":"form_getid",
+                                    "title": "沙箱测试",
+                                    "mode": "flex",
+                                    "labelAlign": "top",
+                                    "dsType": "api",
+                                    "feat": "Edit",
+                                    "body": [
+                                        {
+                                        "type": "input-text",
+                                        "label": "nodeId",
+                                        "name": "nodeId",
+                                        "row": 0,
+                                        "id": "u:7063a3a2032c",
+                                        "value": "${nodeId}",
+                                        "description": "业务节点ID",
+                                        "required": true,
+                                        "colSize": "1"
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "formId",
+                                        "name": "formId",
+                                        "row": 1,
+                                        "id": "u:dd87ff52f3b6",
+                                        "value": "${formId}",
+                                        "description": "表单ID",
+                                        "required": true
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "dataId",
+                                        "name": "dataId",
+                                        "row": 2,
+                                        "id": "u:11ab3adf6f94",
+                                        "placeholder": "必填",
+                                        "description": "数据ID",
+                                        "required": true
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "callback",
+                                        "name": "callback",
+                                        "row": 3,
+                                        "id": "u:47b2420adad2",
+                                        "description": "JSONP回调函数名。使用JSONP方式请求数据时需要填写",
+                                        "colSize": "1"
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "ext",
+                                        "name": "ext",
+                                        "row": 4,
+                                        "id": "u:3691d62a41b8",
+                                        "description": "JSONP回调函数的附加参数。例如：'param1','param2'"
+                                        },
+                                        {
+                                        "type": "input-url",
+                                        "label": "请求URL",
+                                        "name": "requrl_getbyid",
+                                        "row": 5,
+                                        "id": "u:d6e57a74ad40",
+                                        "validations": {},
+                                        "validationErrors": {},
+                                        "addOn": {
+                                            "label": "复制",
+                                            "type": "button",
+                                            "icon": "fa fa-slideshare",
+                                            "level": "primary",
+                                            "id": "u:3dd7af3b24b2"
+                                        },
+                                        "readOnly": true
+                                        },
+                                        {
+                                        "type": "editor",
+                                        "label": "响应结果",
+                                        "name": "requrl_getbyid_res",
+                                        "row": 6,
+                                        "id": "u:d716363f63ed",
+                                        "language": "json"
+                                        }
+                                    ],
+                                    "api": {
+                                        "url": "提交接口",
+                                        "method": "get"
+                                    },
+                                    "actions": [
+                                        {
+                                        "type": "button",
+                                        "label": "沙箱测试",
+                                        "onEvent": {
+                                            "click": {
+                                            "actions": [
+                                                {
+                                                "actionType": "submit",
+                                                "componentId": "u:6525af3d8223"
+                                                }
+                                            ]
+                                            }
+                                        },
+                                        "level": "primary",
+                                        "id": "u:4707691e0a10"
+                                        }
+                                    ],
+                                    "resetAfterSubmit": true,
+                                    "label": ""
+                                    }
+                                ],
+                                "actions": [
+                                    {
+                                    "type": "button",
+                                    "label": "",
+                                    "actionType": "dialog",
+                                    "dialog": {
+                                        "title": "标题",
+                                        "body": "内容"
+                                    },
+                                    "id": "u:7c7b4dcdee42"
+                                    }
+                                ],
+                                "id": "u:ba18e68831d9",
+                                "titleClassName": "font-bold text-primary",
+                                "key": "2"
+                                }
+                            ],
+                            "key": "2",
+                            "id": "u:7665db9f495b"
+                            },
+                            {
+                            "type": "collapse",
+                            "header": "GET 根据数据IDS批量获取数据",
+                            "body": [
+                                {
+                                "type": "card",
+                                "header": {
+                                    "title": "返回格式",
+                                    "subTitle": ""
+                                },
+                                "body": [
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "",
+                                    "inline": true,
+                                    "wrapperComponent": "",
+                                    "label": "JSON",
+                                    "id": "u:f09a6b1864d1",
+                                    "labelClassName": "text-md text-info"
+                                    },
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "<pre><span style=\"background-color: rgb(251, 238, 184);\"><code class=\"json\">{\n\t\"totalCount\":<span class=\"value\"><span class=\"string\">\"integer\"</span>//总数</span>,\n\t\"data\":[{\n\t\"<span class=\"attribute\">id</span>\": <span class=\"value\"><span class=\"string\">\"integer\"</span></span>,\n\t\"<span class=\"attribute\">fields1</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n\t\"<span class=\"attribute\">fields2</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n\t\"<span class=\"attribute\">...</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n\t\"<span class=\"attribute\">...</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>\n\t},{...},{...}]\n\t}</code></span></pre>",
+                                    "inline": true,
+                                    "label": "",
+                                    "id": "u:57a899767089",
+                                    "themeCss": {
+                                        "baseControlClassName": {
+                                        "background:default": "var(--colors-warning-6)"
+                                        }
+                                    },
+                                    "editorSetting": {
+                                        "mock": {}
+                                    }
+                                    },
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "",
+                                    "inline": true,
+                                    "wrapperComponent": "",
+                                    "label": "JSONP",
+                                    "id": "u:9f164d4512be",
+                                    "labelClassName": "text-info text-md"
+                                    },
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "<pre><span style=\"background-color: rgb(251, 238, 184);\"><code class=\"json\">callback({\n\t\"totalCount\":<span class=\"value\"><span class=\"string\">\"integer\"</span></span>,\n\t\"data\":[{\n\t\"<span class=\"attribute\">id</span>\": <span class=\"value\"><span class=\"string\">\"integer\"</span></span>,\n\t\"<span class=\"attribute\">fields1</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n\t\"<span class=\"attribute\">fields2</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n\t\"<span class=\"attribute\">...</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>,\n\t\"<span class=\"attribute\">...</span>\": <span class=\"value\"><span class=\"string\">\"string\"|\"integer\"</span></span>\n\t},{...},{...}]\n\t},param1,param2,...)</code></span></pre>",
+                                    "inline": true,
+                                    "label": "",
+                                    "id": "u:359f5460d025"
+                                    },
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "",
+                                    "inline": true,
+                                    "wrapperComponent": "",
+                                    "label": "异常返回",
+                                    "id": "u:9abd4af492ec",
+                                    "labelClassName": "text-md text-info"
+                                    },
+                                    {
+                                    "type": "tpl",
+                                    "tpl": "<pre><span style=\"background-color: rgb(251, 238, 184);\"><code class=\"json\">{\n\t\"success\":<span class=\"value\"><span class=\"string\">\"boolean\"</span></span>,\n\t\"message\":<span class=\"value\"><span class=\"string\">\"string\"</span>//错误信息</span>\n}</code></span></pre>",
+                                    "inline": true,
+                                    "label": "",
+                                    "id": "u:c20d9c627727"
+                                    },
+                                    {
+                                    "id": "u:813db8c84074",
+                                    "type": "form",
+                                    "title": "沙箱测试",
+                                    "name":"form_getids",
+                                    "mode": "flex",
+                                    "labelAlign": "top",
+                                    "dsType": "api",
+                                    "feat": "Edit",
+                                    "body": [
+                                        {
+                                        "type": "input-text",
+                                        "label": "nodeId",
+                                        "name": "nodeId",
+                                        "row": 0,
+                                        "id": "u:475c87cc820e",
+                                        "value": "${nodeId}",
+                                        "description": "业务节点ID",
+                                        "required": true,
+                                        "colSize": "1"
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "formId",
+                                        "name": "formId",
+                                        "row": 1,
+                                        "id": "u:a6c192e9f8f5",
+                                        "value": "${formId}",
+                                        "description": "表单ID",
+                                        "required": true
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "dataIds",
+                                        "name": "dataIds",
+                                        "row": 2,
+                                        "id": "u:2cbc4ff0d7ae",
+                                        "placeholder": "必填",
+                                        "description": "数据ID,多个id用\",\"分隔,最多20个id",
+                                        "required": true
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "callback",
+                                        "name": "callback",
+                                        "row": 3,
+                                        "id": "u:1b2a7f150c36",
+                                        "description": "JSONP回调函数名。使用JSONP方式请求数据时需要填写",
+                                        "colSize": "1"
+                                        },
+                                        {
+                                        "type": "input-text",
+                                        "label": "ext",
+                                        "name": "ext",
+                                        "row": 4,
+                                        "id": "u:bf509a21baec",
+                                        "description": "JSONP回调函数的附加参数。例如：'param1','param2'"
+                                        },
+                                        {
+                                        "type": "input-url",
+                                        "label": "请求URL",
+                                        "name": "requrl_getbyids",
+                                        "row": 5,
+                                        "id": "u:9cf9788fb5da",
+                                        "validations": {},
+                                        "validationErrors": {},
+                                        "addOn": {
+                                            "label": "复制",
+                                            "type": "button",
+                                            "icon": "fa fa-slideshare",
+                                            "id": "u:4916b9ab714b"
+                                        },
+                                        "readOnly": true
+                                        },
+                                        {
+                                        "type": "editor",
+                                        "label": "响应结果",
+                                        "name": "requrl_getbyids_res",
+                                        "row": 6,
+                                        "id": "u:4bf8c6a9bffd",
+                                        "language": "json"
+                                        }
+                                    ],
+                                    "api": {
+                                        "url": "提交接口",
+                                        "method": "get"
+                                    },
+                                    "actions": [
+                                        {
+                                        "type": "button",
+                                        "label": "提交",
+                                        "onEvent": {
+                                            "click": {
+                                            "actions": [
+                                                {
+                                                "actionType": "submit",
+                                                "componentId": "u:813db8c84074"
+                                                }
+                                            ]
+                                            }
+                                        },
+                                        "level": "primary",
+                                        "id": "u:a9d026c71485"
+                                        }
+                                    ],
+                                    "resetAfterSubmit": true,
+                                    "label": ""
+                                    }
+                                ],
+                                "actions": [
+                                    {
+                                    "type": "button",
+                                    "label": "",
+                                    "actionType": "dialog",
+                                    "dialog": {
+                                        "title": "标题",
+                                        "body": "内容"
+                                    },
+                                    "id": "u:57a49b788c77"
+                                    }
+                                ],
+                                "id": "u:cb1da347953f",
+                                "titleClassName": "font-bold text-primary"
+                                }
+                            ],
+                            "key": "3",
+                            "id": "u:32bd5e43068d"
+                            }
+                        ],
+                        "row": 0,
+                        "id": "u:7871db717519"
+                        }
+                    ],
+            "subTitle": "所有表单列表，以及相关数据接口调用示例",
+            "id": "u:f3aa35b56fdb",
+            "asideResizor": false,
+            "pullRefresh": {
+                "disabled": true
+            },
+            "regions": [
+                "body",
+                "header"
+            ]
+            };
+        let amisScoped = amis.embed('#root', amisJSON,{
+            // 这里是初始 props
+          },
+          // 注意是第四个参数
+          {
+            theme: 'antd'
+          });
+      })();
+    </script>
+</body>
+</html>

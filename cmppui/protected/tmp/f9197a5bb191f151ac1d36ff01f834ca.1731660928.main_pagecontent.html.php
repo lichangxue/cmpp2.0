@@ -1,0 +1,54 @@
+<?php if(!class_exists("View", false)) exit("no direct access allowed");?><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CMPP 2.0</title>
+<link rel="stylesheet" href="//p1.renbenzhihui.com/amis/sdk6.0.0/sdk/sdk.css" />
+<link rel="stylesheet" href="//p1.renbenzhihui.com/amis/sdk6.0.0/sdk/helper.css" />
+<link rel="stylesheet" href="//p1.renbenzhihui.com/amis/sdk6.0.0/sdk/iconfont.css" />
+<link rel="stylesheet" href="//p1.renbenzhihui.com/amis/sdk6.0.0/sdk/antd.css" />
+<style>
+    html,
+    body,
+    .app-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    .dialog_bodycss{
+      width:100%;
+      height:600px !important;
+      overflow:scroll;
+    }
+    .dialog_bodycss_full{
+      width:100%;
+      height:1000px !important;
+      overflow:scroll;
+    }
+  </style>
+</head>
+<body>
+    <div id="root" class="app-wrapper"></div>
+    <script src="//p1.renbenzhihui.com/amis/sdk6.0.0/sdk/sdk.js"></script>
+    <script src="/i/public/js/jquery-3.7.1.min.js" charset="utf-8"></script>
+    <script src="/i/public/js/jquery.cookie.js" charset="utf-8"></script>
+
+    <script type="text/javascript">
+      (function () {
+        let amis = amisRequire('amis/embed');
+        // 通过替换下面这个配置来生成不同页面
+        let amisJSON = <?php echo $pageJson; ?>
+        
+        let amisScoped = amis.embed('#root', amisJSON,{
+            // 这里是初始 props
+          },
+          // 注意是第四个参数
+          {
+            theme: 'antd'
+          });
+      })();
+    </script>
+</body>
+</html>

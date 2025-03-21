@@ -1,0 +1,495 @@
+{
+    "type": "page",
+    "title": "菜单管理",
+    "asideResizor": false,
+  "pullRefresh": {
+    "disabled": true
+  },
+  "regions": [
+    "body",
+    "toolbar",
+    "header"
+  ],
+    "body": [
+      {
+        "type": "crud",
+        "syncLocation": false,
+        "api": {
+          "method": "post",
+          "url": "/system/sendReq.html",
+          "requestAdaptor": "",
+          "adaptor": "",
+          "messages": {},
+          "dataType": "json",
+          "data": {
+            "api": "/api/menus/getAllMenusByPagenation",
+            "method": "post",
+            "nodeid":"${nodeid}",
+            "&": "$$"
+          }
+        },
+        "columns": [
+          {
+            "name": "id",
+            "label": "ID",
+            "type": "text",
+            "id": "u:0edbb08f8a5d"
+          },
+          {
+            "name": "title",
+            "label": "菜单标题",
+            "type": "text",
+            "id": "u:37f8067bb3a6"
+          },
+          {
+            "type": "text",
+            "name": "icon",
+            "label": "菜单图标",
+            "id": "u:40bad23d1bf5"
+          },
+          {
+            "type": "text",
+            "name": "sort",
+            "label": "菜单排序",
+            "id": "u:40bad231bf5"
+          },
+          {
+            "type": "text",
+            "label": "页面地址",
+            "name": "href",
+            "id": "u:be1770b8bc25"
+          },
+          {
+            "type": "switch",
+            "label": "可见",
+            "name": "visible",
+            "id": "u:4a36e47f5c3b",
+            "value": 2,
+            "trueValue": 1,
+            "falseValue": 2
+          },
+          {
+            "type": "operation",
+            "label": "操作",
+            "buttons": [
+              {
+                "type": "button",
+                "label": "删除",
+                "visibleOn": "${view_type==2}",
+                "actionType": "ajax",
+                "level": "link",
+                "className": "text-danger",
+                "confirmText": "确定要删除？",
+                "api": {
+                  "method": "post",
+                  "url": "/system/sendReq.html",
+                  "requestAdaptor": "",
+                  "adaptor": "",
+                  "messages": {},
+                  "dataType": "json",
+                  "data": {
+                    "api": "/api/menus/delMenu",
+                    "method": "post",
+                    "ids": "${id}"
+                  }
+                },
+                "editorSetting": {
+                  "behavior": "delete"
+                },
+                "id": "u:3e1e99c8843e"
+              },
+              {
+                "label": "编辑",
+                "type": "button",
+                "actionType": "dialog",
+                "level": "link",
+                "editorSetting": {
+                  "behavior": "update"
+                },
+                "dialog": {
+                  "type": "dialog",
+                  "title": "编辑",
+                  "body": [
+                    {
+                        "type": "form",
+                        "api": {
+                          "method": "post",
+                          "url": "/system/sendReq.html",
+                          "requestAdaptor": "",
+                          "adaptor": "",
+                          "messages": {},
+                          "dataType": "json",
+                          "data": {
+                            "api": "/api/menus/updateMenu",
+                            "method": "post",
+                            "&": "$$"
+                          }
+                        },
+                        "body": [
+                            {
+                                "type": "input-text",
+                                "name": "id",
+                                "label": "ID",
+                                "id": "u:6a7fa63d1434",
+                                "readOnly": true
+                              },
+                          {
+                            "type": "input-text",
+                            "name": "title",
+                            "label": "菜单标题",
+                            "id": "u:174ad1fa2",
+                            "required": true
+                          },
+                          {
+                            "type": "input-tree",
+                            "label": "父菜单",
+                            "name": "parentid",
+                            "id": "u:7a1a84259",
+                            "multiple": false,
+                            "enableNodePath": false,
+                            "hideRoot": true,
+                            "showIcon": true,
+                            "initiallyOpen": true,
+                            "source": {
+                              "url": "/system/sendReq.html",
+                              "method": "post",
+                              "requestAdaptor": "",
+                              "adaptor": "",
+                              "messages": {},
+                              "dataType": "json",
+                              "data": {
+                                "&": "$$",
+                                "api": "/api/menus/getAllMenus?nodeid=${nodeid}",
+                                "method": "get"
+                              }
+                            },
+                            "labelField": "title",
+                            "valueField": "id",
+                            "iconField": "icon",
+                            "showOutline": true,
+                            "required": true
+                          },
+                          {
+                            "type": "input-text",
+                            "name": "icon",
+                            "label": "菜单图标",
+                            "id": "u:604bf488e",
+                            "description": "ICON使用Layui官方图标<a href=\"https://layui.dev/docs/2/icon/\">点击选择</a>"
+                          },
+                          {
+                            "type": "select",
+                            "name": "target",
+                            "label": "页面打开方式",
+                            "id": "u:864442723",
+                            "multiple": false,
+                            "options": [
+                              {
+                                "label": "新页面",
+                                "value": "_bank"
+                              },
+                              {
+                                "label": "内页",
+                                "value": "_native"
+                              }
+                            ],
+                            "value": "_native"
+                          },
+                          {
+                            "type": "input-text",
+                            "name": "href",
+                            "label": "页面地址",
+                            "id": "u:a64e4199e",
+                            "description": "示例：/menus.html"
+                          },
+                          {
+                            "type": "select",
+                            "name": "visible",
+                            "label": "可见",
+                            "id": "u:c9ace2dbe",
+                            "multiple": false,
+                            "options": [
+                              {
+                                "label": "展示",
+                                "value": 1
+                              },
+                              {
+                                "label": "隐藏",
+                                "value": 2
+                              }
+                            ],
+                            "value": 1
+                          },
+                          {
+                            "type": "select",
+                            "label": "视图类型",
+                            "name": "view_type",
+                            "options": [
+                              {
+                                "label": "系统视图",
+                                "value": 1
+                              },
+                              {
+                                "label": "用户视图",
+                                "value": 2
+                              }
+                            ],
+                            "id": "u:1d97e40d3",
+                            "multiple": false,
+                            "description": "系统视图只能超级管理员在数据库删除，用户无法删除",
+                            "value": 2
+                          },
+                          {
+                            "type": "input-number",
+                            "label": "排序",
+                            "name": "sort",
+                            "keyboard": true,
+                            "id": "u:d30bd8da2",
+                            "step": 1,
+                            "description": "取值范围1~9999，取值越大排序越靠前",
+                            "value": 0
+                          }
+                        ],
+                        "id": "u:b4a42bc63",
+                        "actions": [
+                          {
+                            "type": "submit",
+                            "label": "提交",
+                            "primary": true
+                          }
+                        ],
+                        "feat": "Insert"
+                      }
+                  ],
+                  "id": "u:b32922f5d",
+                  "actions": [
+                    {
+                      "type": "button",
+                      "actionType": "cancel",
+                      "label": "取消",
+                      "id": "u:be2419ed7"
+                    },
+                    {
+                      "type": "button",
+                      "actionType": "confirm",
+                      "label": "确定",
+                      "primary": true,
+                      "id": "u:738a8f098"
+                    }
+                  ]
+                },
+                "id": "u:7d41e6f49"
+              },
+              {
+                "type": "button",
+                "label": "配置视图",
+                "onEvent": {
+                  "click": {
+                    "actions": [{
+                      "ignoreError": false,
+                      "actionType": "url",
+                      "args": {
+                        "url": "/formEdit/index.html#/edit/0/id/${id},${token}"
+                      }
+                    }]
+                  }
+                },
+                "id": "u:9e82e6db7092",
+                "icon": "fa fa-snapchat",
+                "level": "link"
+              }
+            ],
+            "id": "u:f76a454a7"
+          }
+        ],
+        "bulkActions": [],
+        "itemActions": [],
+        "headerToolbar": [
+          {
+            "label": "新增",
+            "type": "button",
+            "actionType": "dialog",
+            "level": "primary",
+            "editorSetting": {
+              "behavior": "create"
+            },
+            "dialog": {
+              "type": "dialog",
+              "title": "新增",
+              "body": [
+                {
+                  "type": "form",
+                  "api": {
+                    "method": "post",
+                    "url": "/system/sendReq.html",
+                    "requestAdaptor": "",
+                    "adaptor": "",
+                    "messages": {},
+                    "dataType": "json",
+                    "data": {
+                      "api": "/api/menus/addMenu",
+                      "method": "post",
+                      "&": "$$"
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "input-text",
+                      "name": "title",
+                      "label": "菜单标题",
+                      "id": "u:174382ad1fa2",
+                      "required": true
+                    },
+                    {
+                      "type": "input-tree",
+                      "label": "父菜单",
+                      "name": "parentid",
+                      "id": "u:7af811a84259",
+                      "multiple": false,
+                      "enableNodePath": false,
+                      "hideRoot": true,
+                      "showIcon": true,
+                      "initiallyOpen": true,
+                      "source": {
+                        "url": "/system/sendReq.html",
+                        "method": "post",
+                        "requestAdaptor": "",
+                        "adaptor": "",
+                        "messages": {},
+                        "dataType": "json",
+                        "data": {
+                          "&": "$$",
+                          "api": "/api/menus/getAllMenus?nodeid=${nodeid}",
+                          "method": "get"
+                        }
+                      },
+                      "labelField": "title",
+                      "valueField": "id",
+                      "iconField": "icon",
+                      "showOutline": true,
+                      "required": true
+                    },
+                    {
+                      "type": "input-text",
+                      "name": "icon",
+                      "label": "菜单图标",
+                      "id": "u:66da04bf488e",
+                      "description": "ICON使用Layui官方图标<a href=\"https://layui.dev/docs/2/icon/\">点击选择</a>"
+                    },
+                    {
+                      "type": "select",
+                      "name": "target",
+                      "label": "页面打开方式",
+                      "id": "u:864dd2442723",
+                      "multiple": false,
+                      "options": [
+                        {
+                          "label": "外部链接",
+                          "value": "_bank"
+                        },
+                        {
+                          "label": "内置页面",
+                          "value": "_native"
+                        }
+                      ],
+                      "value": "_native"
+                    },
+                    {
+                      "type": "input-text",
+                      "name": "href",
+                      "label": "页面地址",
+                      "id": "u:a64c70e4199e",
+                      "description": "示例：/menus.html"
+                    },
+                    {
+                      "type": "select",
+                      "name": "visible",
+                      "label": "可见",
+                      "id": "u:c9ace35e2dbe",
+                      "multiple": false,
+                      "options": [
+                        {
+                          "label": "展示",
+                          "value": 1
+                        },
+                        {
+                          "label": "隐藏",
+                          "value": 2
+                        }
+                      ],
+                      "value": 1
+                    },
+                    {
+                      "type": "select",
+                      "label": "视图类型",
+                      "name": "view_type",
+                      "options": [
+                        {
+                          "label": "系统视图",
+                          "value": 1
+                        },
+                        {
+                          "label": "用户视图",
+                          "value": 2
+                        }
+                      ],
+                      "id": "u:1d9c7d7e40d3",
+                      "multiple": false,
+                      "description": "系统视图只能超级管理员在数据库删除，用户无法删除",
+                      "value": 2
+                    },
+                    {
+                      "type": "input-number",
+                      "label": "排序",
+                      "name": "sort",
+                      "keyboard": true,
+                      "id": "u:d30bdd218da2",
+                      "step": 1,
+                      "description": "取值范围1~9999，取值越大排序越靠前",
+                      "value": 0
+                    }
+                  ],
+                  "id": "u:b4a6da42bc63",
+                  "actions": [
+                    {
+                      "type": "submit",
+                      "label": "提交",
+                      "primary": true
+                    }
+                  ],
+                  "feat": "Insert"
+                }
+              ],
+              "id": "u:9c4616b46ad6",
+              "actions": [
+                {
+                  "type": "button",
+                  "actionType": "cancel",
+                  "label": "取消",
+                  "id": "u:339e85996fd1"
+                },
+                {
+                  "type": "button",
+                  "actionType": "confirm",
+                  "label": "确定",
+                  "primary": true,
+                  "id": "u:53d6ae560bba"
+                }
+              ]
+            },
+            "id": "u:bfff77670107"
+          },
+          "bulkActions"
+        ],
+        "id": "u:a8d86f2326a7",
+        "perPageAvailable": [
+          200
+        ],
+        "messages": {},
+        "interval": 3000,
+        "silentPolling": true,
+        "stopAutoRefreshWhenModalIsOpen": true,
+        "perPage": 200
+      }
+    ],
+    "id": "u:d7c370aaf49e"
+  }

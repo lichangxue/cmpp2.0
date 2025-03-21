@@ -1,0 +1,111 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>demo-Ext.ux.ImageUploader</title>
+	<link rel="stylesheet" type="text/css" href="../../ext2/resources/css/ext-all.css" />
+	<link rel="stylesheet" type="text/css" href="../../ext2/resources/css/patch.css" />
+	<link rel="stylesheet" type="text/css" href="../../../../res/css/runTime.css" />
+	
+	<script type="text/javascript" src="../../ext2/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../../ext2/ext-all-debug.js"></script>	
+	<script type="text/javascript" src="../../ext2/ext-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="../../ext_base_extension.js"></script>
+	<script type="text/javascript" src="../Ext.ux.ImageCutter.js"></script>
+	<script type="text/javascript" src="../Ext.ux.ImageUploader.js"></script>
+</head>
+<body>	
+<script>
+/*
+Ext.onReady(function(){
+    
+    var myData = {"image":[{"picUrl":"http://y1.ifengimg.com/a/2016_11/42df4bc5b272620.png","title":"","link":"","description":"","width":778,"height":243,"byte":11249,"shortcutsPics":[]},{"picUrl":"http://y3.ifengimg.com/a/2016_11/1754d6d198f6df7.png","title":"","link":"","description":"","width":962,"height":207,"byte":14158,"shortcutsPics":[]},{"picUrl":"http://y3.ifengimg.com/a/2016_11/6325e89811d6cbf.png","title":"","link":"","description":"","width":515,"height":540,"byte":14642,"shortcutsPics":[]}],"mainImage":0};
+    
+	var store=new Ext.data.JsonStore({ 
+		root:"image",
+		fields:['picUrl',
+		{name:'byte',type:'int'},
+		{name:'width',type:'int'},
+		{name:'height',type:'int'}]
+	});
+
+    store.loadData(myData);
+
+    var tpl = new Ext.XTemplate(
+        '<tpl for=".">',
+            '<div class="thumb-wrap" id="{name}">',
+				'<div class="thumb"><img src="{picUrl}" title="{title}"></div>',
+				'<span class="x-info"><label class="image-size">{width}×{height}</label><label class="image-kbs">{byte}</label></span>',
+				'<span class="x-btn"><a href="#">插入到正文</a></span>',
+				'<a class="x-close" title="删除">X</a>',
+			'</div>',
+        '</tpl>',
+        '<div class="x-clear"></div>'
+    );
+
+    var panel = new Ext.Panel({
+        id:'images-view',
+        frame:true,
+        width:535,
+        autoHeight:true,
+        collapsible:true,
+        layout:'fit',
+        title:'Simple DataView (0 items selected)',
+		cls:"ux-ImageUploader",
+        items: new Ext.DataView({
+            store: store,
+            tpl: tpl,
+            autoHeight:true,
+            multiSelect: true,
+            overClass:'x-view-over',//鼠标悬停item时的类样式,defaults to undefined
+            itemSelector:'div.thumb-wrap',//必须项,值为item选择器,此值也可为.thumb-wrap  e.g. div.some-class
+            emptyText: '没有图片',
+
+            plugins: [
+                //new Ext.DataView.DragSelector(),//拖拽选择
+                //new Ext.DataView.LabelEditor({dataIndex: 'name'})//可对名称编辑
+            ],
+            prepareData: function(data){//数据预处理,即数据处理前.data为原始数据,类型为对象.
+                data.shortName = Ext.util.Format.ellipsis(data.name, 15);
+                //data.sizeString = Ext.util.Format.fileSize(data.size);
+                //data.dateString = data.lastmod.format("n/j h:ia");
+                return data;
+            }
+        })
+    });
+    panel.render(document.body);
+
+});
+*/
+
+Ext.onReady(function(){
+	Ext.BLANK_IMAGE_URL = "../../ext2/resources/images/default/s.gif";	
+	
+	new Ext.ux.ImageUploader({
+		id:"ImageUploader_1",
+		renderTo:Ext.getBody(),
+		title:'',
+		waterMarkImageButtons:'[{item:{"text":"资讯logo","url":"http://y3.ifengimg.com/2f86f1d4ae63c9a4/2014/0117/rdn_52d88772ad4cd.png"}},{item:{"text":"军事logo","url":"http://y3.ifengimg.com/a/2014/0326/6d7f98ab8ed081c15d7a2177c50ac270.png"}}]',
+		imageCutterConfig:JSON.stringify({
+			xtype:'imagecutter',
+			button_text:"裁图",
+			resRoot:"../../../../res/",
+			viewButtonVisible:false,
+			copyButtonVisible:false,
+			onlyUploadEnable:false,
+			AIDefaultChecked:false,
+			sampleSize:null,
+			sampleSizeEnable:true
+		}),//裁图控件配置
+		insertToDocumentEnable:true,
+		insertToDocumentHandler:function(data){
+			alert(data.picUrl);
+		},
+		resRoot:"../../../../res/",
+		value:'{"image":[{"picUrl":"http://y2.ifengimg.com/a/2016_11/91ace0e784cd076.jpg","title":"","link":"","description":"据新民网报道，2016年3月10日上海早高峰，内环高架外圈黄兴路段发生一起多车事故。","width":600,"height":450,"byte":51803,"shortcutsPics":[]},{"picUrl":"http://y0.ifengimg.com/a/2016_11/edb6fb9b84bcf1e.jpg","title":"","link":"","description":"通过多名网友所拍的现场照片可以看到，至少有3辆小轿车牵扯其中，其中2车甚至骑上了内环高架的桥墩，上演了一出“飞檐走壁”。","width":450,"height":600,"byte":81418,"shortcutsPics":[]},{"picUrl":"http://y3.ifengimg.com/a/2016_11/7e00a5e5d329f2e.jpg","title":"","link":"","description":"事故现场。","width":450,"height":600,"byte":56493,"shortcutsPics":[]},{"picUrl":"http://y2.ifengimg.com/a/2016_11/253882c94801812.jpg","title":"","link":"","description":"事故现场。","width":490,"height":327,"byte":38041,"shortcutsPics":[]},{"picUrl":"http://y2.ifengimg.com/a/2016_11/c2ed6e04e4fa7b0.jpg","title":"","link":"","description":"事故现场。","width":676,"height":507,"byte":50995,"shortcutsPics":[]},{"picUrl":"http://y1.ifengimg.com/a/2016_11/ff7687ce4f37bde.jpg","title":"","link":"","description":"事故地点。","width":600,"height":504,"byte":65218,"shortcutsPics":[]}],"mainImage":0}'
+		
+	});
+});
+</script>	
+</body>
+</html>

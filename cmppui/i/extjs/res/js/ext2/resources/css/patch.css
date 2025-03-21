@@ -1,0 +1,33 @@
+@font-face {font-family: 'iconfont';src: url('iconfont.woff') format('woff');}
+
+ext-el-mask-msg div,.loading-indicator,.x-tab-strip span.x-tab-strip-text,.x-form-invalid-msg,.x-small-editor .x-form-field,.x-fieldset legend,.x-btn,.x-btn button,.x-toolbar td,.x-toolbar span,.x-toolbar input,.x-toolbar div,.x-toolbar select,.x-toolbar label,.x-grid3-hd-row td,.x-grid3-row td,.x-grid3-summary-row td,.x-grid3-topbar,.x-grid3-bottombar,.x-grid-group-hd div,.x-grid-empty,.x-dd-drag-ghost,.x-tree-node,.x-date-middle,.x-date-left,.x-date-right,.x-date-inner a,.x-date-mp td,.x-date-mp-btns button,.x-tip .x-tip-mc,.x-tip .x-tip-header-text,.x-tip .x-tip-body,.x-menu-list-item,#x-debug-browser .x-tree .x-tree-node a span,.x-combo-list-hd,.x-combo-list-small .x-combo-list-item,.x-panel-header,.x-panel-tl .x-panel-header,.x-panel-mc,.x-window-tl .x-window-header,.x-window-mc,.x-progress-text,.x-date-inner th,.x-date-mmenu .x-menu-item, .ext-safari .x-small-editor .x-form-field
+{
+	font-size:9pt;font: 12px 宋体,tahoma,helvetica,sans-serif;
+} /*解决firefox下字体偏小的样式补丁*/
+
+.x-btn-default-small .x-btn-inner, .x-btn-default-medium .x-btn-inner, .x-btn-default-large .x-btn-inner, .x-btn-default-toolbar-small .x-btn-inner, .x-btn-default-toolbar-medium .x-btn-inner, .x-btn-default-toolbar-large .x-btn-inner, .x-menu-item-text, .x-html-editor-tb .x-font-select, .x-panel-header-default, .x-panel-header-text-default, .x-panel-header-default-framed, .x-tip-header, .x-tip-body, .x-form-invalid-tip-body, .x-tip-header-text, .x-progress-text, .x-toolbar, .x-toolbar .x-form-item-label, .x-toolbar .x-toolbar-text, .x-window-header-text-default, .x-tab-bar, .x-tab button, .x-grid-rowbody, .x-grid-row .x-grid-cell, .x-grid-group-title, .x-grid-row-editor .x-form-field, .x-grid-row-editor .x-form-display-field, .x-form-invalid-under, .x-fieldset-header, .x-column-header, .x-mask-msg div, .x-btn-group-header-text-default-framed, table.x-datepicker-inner a, .x-monthpicker-item, .x-dd-drag-ghost, .ext-safari .x-small-editor .x-form-field
+{
+	font: 12px 宋体,tahoma,helvetica,sans-serif;
+}
+
+/*列表页超链接的样式*/
+td a {
+	color:#004A99;
+}
+td a:hover {
+	color:#BA2636;
+}
+/*只读文本框的样式*/
+input[readonly=""]{background:transparent;border-color:#ddd}
+input[readonly="readonly"]{background:transparent;border-color:#ddd}
+textarea[readonly=""]{background:transparent;border-color:#ddd}
+textarea[readonly="readonly"]{background:transparent;border-color:#ddd}
+
+/*for propertyGrid*/
+.x-grid3-td-text {
+    padding: 1px;
+    padding-right: 0;
+    border: 0 none;
+    border-right: 1px solid #eee;
+}
+.x-grid3-td-help-button{cursor:pointer;}

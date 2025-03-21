@@ -1,0 +1,293 @@
+{
+    "type": "page",
+    "title": "角色管理",
+    "body": [
+      {
+        "type": "crud",
+        "syncLocation": false,
+        "api": {
+          "method": "post",
+          "url": "/system/sendReq.html",
+          "requestAdaptor": "",
+          "adaptor": "",
+          "messages": {},
+          "dataType": "json",
+          "data": {
+            "&": "$$",
+            "api": "/api/roles/list",
+            "method": "post"
+          }
+        },
+        "columns": [
+          {
+            "name": "id",
+            "label": "ID",
+            "type": "text",
+            "id": "u:6759574fe7b8"
+          },
+          {
+            "name": "name",
+            "label": "角色名称",
+            "type": "text",
+            "id": "u:ed9f642278d4"
+          },
+          {
+            "type": "operation",
+            "label": "操作",
+            "buttons": [
+              {
+                "type": "button",
+                "label": "删除",
+                "actionType": "ajax",
+                "level": "link",
+                "className": "text-danger",
+                "confirmText": "确定要删除？",
+                "api": {
+                  "method": "post",
+                  "url": "/system/sendReq.html",
+                  "requestAdaptor": "",
+                  "adaptor": "",
+                  "messages": {},
+                  "dataType": "json",
+                  "data": {
+                    "&": "$$",
+                    "ids":"${id}",
+                    "api": "/api/roles/del",
+                    "method": "post"
+                  }
+                },
+                "editorSetting": {
+                  "behavior": "delete"
+                },
+                "id": "u:6f99f2e53618"
+              },
+              {
+                "label": "编辑",
+                "type": "button",
+                "actionType": "dialog",
+                "level": "link",
+                "editorSetting": {
+                  "behavior": "update"
+                },
+                "dialog": {
+                  "type": "dialog",
+                  "title": "编辑",
+                  "body": [
+                    {
+                      "type": "form",
+                      "initApi": {
+                        "method": "post",
+                        "url": "/system/sendReq.html",
+                        "requestAdaptor": "",
+                        "adaptor": "",
+                        "messages": {},
+                        "dataType": "json",
+                        "data": {
+                          "&": "$$",
+                          "api": "/api/roles/getRoleById",
+                          "method": "post"
+                        }
+                      },
+                      "api": {
+                        "method": "post",
+                        "url": "/system/sendReq.html",
+                        "requestAdaptor": "",
+                        "adaptor": "",
+                        "messages": {},
+                        "dataType": "json",
+                        "data": {
+                          "&": "$$",
+                          "api": "/api/roles/mod",
+                          "method": "post"
+                        }
+                      },
+                      "body": [
+                        {
+                          "name": "id",
+                          "label": "ID",
+                          "type": "input-text",
+                          "id": "u:4189375c0750",
+                          "hidden": true
+                        },
+                        {
+                          "name": "name",
+                          "label": "角色名称",
+                          "type": "input-text",
+                          "id": "u:d80fabbd6a87"
+                        },
+                        {
+                          "type": "input-tree",
+                          "label": "权限菜单",
+                          "name": "menuids",
+                          "id": "u:58c428adef8f",
+                          "multiple": true,
+                          "enableNodePath": false,
+                          "hideRoot": true,
+                          "showIcon": true,
+                          "initiallyOpen": true,
+                          "autoCheckChildren": true,
+                          "cascade": true,
+                          "source": {
+                            "url": "/system/sendReq.html",
+                            "method": "post",
+                            "requestAdaptor": "",
+                            "adaptor": "",
+                            "messages": {},
+                            "dataType": "json",
+                            "data": {
+                              "&": "$$",
+                              "api": "/api/menus/getAllMenus",
+                              "method": "get"
+                            }
+                          },
+                          "labelField": "title",
+                          "valueField": "id"
+                        }
+                      ],
+                      "id": "u:bffb51e8f2e1",
+                      "actions": [
+                        {
+                          "type": "submit",
+                          "label": "提交",
+                          "primary": true
+                        }
+                      ],
+                      "feat": "Insert"
+                    }
+                  ],
+                  "id": "u:b098dcf3468f",
+                  "actions": [
+                    {
+                      "type": "button",
+                      "actionType": "cancel",
+                      "label": "取消",
+                      "id": "u:a5ce6e4780bc"
+                    },
+                    {
+                      "type": "button",
+                      "actionType": "confirm",
+                      "label": "确定",
+                      "primary": true,
+                      "id": "u:429513f318f8"
+                    }
+                  ]
+                },
+                "id": "u:79108a6c2577"
+              }
+            ],
+            "id": "u:930cf9836976",
+            "placeholder": "-"
+          }
+        ],
+        "bulkActions": [],
+        "itemActions": [],
+        "headerToolbar": [
+          {
+            "label": "新增",
+            "type": "button",
+            "actionType": "dialog",
+            "level": "primary",
+            "editorSetting": {
+              "behavior": "create"
+            },
+            "dialog": {
+              "type": "dialog",
+              "title": "新增",
+              "body": [
+                {
+                  "type": "form",
+                  "api": {
+                    "method": "post",
+                    "url": "/system/sendReq.html",
+                    "requestAdaptor": "",
+                    "adaptor": "",
+                    "messages": {},
+                    "dataType": "json",
+                    "data": {
+                      "&": "$$",
+                      "api": "/api/roles/add",
+                      "method": "post"
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "input-text",
+                      "name": "name",
+                      "label": "角色名称",
+                      "id": "u:19a6409f6d5e"
+                    },
+                    {
+                      "type": "input-tree",
+                      "label": "权限菜单",
+                      "name": "menuids",
+                      "id": "u:fc5a3cb2d1b4",
+                      "multiple": true,
+                      "enableNodePath": false,
+                      "hideRoot": true,
+                      "showIcon": true,
+                      "initiallyOpen": true,
+                      "autoCheckChildren": true,
+                      "cascade": true,
+                      "source": {
+                        "url": "/system/sendReq.html",
+                        "method": "post",
+                        "requestAdaptor": "",
+                        "adaptor": "",
+                        "messages": {},
+                        "dataType": "json",
+                        "data": {
+                          "&": "$$",
+                          "api": "/api/menus/getAllMenus",
+                          "method": "get"
+                        }
+                      },
+                      "labelField": "title",
+                      "valueField": "id",
+                      "iconField": "icon"
+                    }
+                  ],
+                  "id": "u:0062951f8841",
+                  "actions": [
+                    {
+                      "type": "submit",
+                      "label": "提交",
+                      "primary": true
+                    }
+                  ],
+                  "feat": "Insert"
+                }
+              ],
+              "id": "u:a6eeb8587d14",
+              "actions": [
+                {
+                  "type": "button",
+                  "actionType": "cancel",
+                  "label": "取消",
+                  "id": "u:454352966ff8"
+                },
+                {
+                  "type": "button",
+                  "actionType": "confirm",
+                  "label": "确定",
+                  "primary": true,
+                  "id": "u:789bd430c852"
+                }
+              ]
+            },
+            "id": "u:d13ba3efefa8"
+          },
+          "bulkActions"
+        ],
+        "id": "u:503e5e363879",
+        "perPageAvailable": [
+          20
+        ],
+        "messages": {},
+        "interval": 3000,
+        "silentPolling": true,
+        "stopAutoRefreshWhenModalIsOpen": true,
+        "perPage": 20
+      }
+    ],
+    "id": "u:2ebd83737cb2"
+  }

@@ -1,0 +1,406 @@
+{
+  "type": "page",
+  "title": "Redis管理",
+  "id": "u:9b241a1a64db",
+  "asideResizor": false,
+  "body": [
+    {
+      "type": "crud",
+      "syncLocation": false,
+      "api": {
+        "method": "post",
+        "url": "/system/sendReq.html",
+        "requestAdaptor": "",
+        "adaptor": "",
+        "messages": {},
+        "dataType": "json",
+        "data": {
+          "&": "$$",
+          "method": "post",
+          "api":"/api/keymage/list"
+        }
+      },
+      "columns": [
+        {
+          "name": "id",
+          "label": "ID",
+          "type": "text",
+          "id": "u:fee3a35d3ef9"
+        },
+        {
+          "name": "key_name",
+          "label": "键名称",
+          "type": "text",
+          "id": "u:85505f37a9b4"
+        },
+        {
+            "type": "mapping",
+            "name": "key_type",
+            "label": "键类型",
+            "id": "u:02f569869eff",
+            "map": {
+                "String": "<span class='label label-info'>字符串（String）</span>",
+                "List": "<span class='label label-success'>列表（List）</span>",
+                "Set": "<span class='label label-danger'>集合（Set）</span>",
+                "SortSet": "<span class='label label-warning'>有序集合（Sort Set）</span>",
+                "Hash": "<span class='label label-success'>哈希（Hash）</span>",
+                "*": "<span class='label label-default'>-</span>"
+            }
+          },
+        {
+          "type": "text",
+          "label": "链接地址",
+          "name":"server_ip_port",
+          "id": "u:a8869afed2dd"
+        },
+        {
+          "type": "text",
+          "name": "key_desc",
+          "label": "用途",
+          "id": "u:7761e2ecd01f"
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "buttons": [
+            {
+              "label": "编辑",
+              "type": "button",
+              "actionType": "dialog",
+              "level": "link",
+              "editorSetting": {
+                "behavior": "update"
+              },
+              "dialog": {
+                "title": "编辑",
+                "body": {
+                  "type": "form",
+                  "api": {
+                    "method": "post",
+                    "url": "/system/sendReq.html",
+                    "requestAdaptor": "",
+                    "adaptor": "",
+                    "messages": {},
+                    "dataType": "json",
+                    "data": {
+                      "&": "$$",
+                      "method": "post",
+                      "api":"/api/keymage/mod",
+                      "nodeid":"${nodeid}"
+                    }
+                  },
+                  "body": [
+                    {
+                      "name": "id",
+                      "label": "ID",
+                      "type": "input-text"
+                    },
+                    {
+                      "name": "key_name",
+                      "label": "键名称",
+                      "readOnly": true,
+                      "type": "input-text"
+                    },
+                    {
+                        "type": "select",
+                        "name": "key_type",
+                        "label": "键类型",
+                        "id": "u:aee3ebb4a08a",
+                        "multiple": false,
+                        "options": [
+                          {
+                            "label": "字符串（String）",
+                            "value": "String"
+                          },
+                          {
+                            "label": "列表（List）",
+                            "value": "List"
+                          },
+                          {
+                            "label": "集合（Set）",
+                            "value": "Set"
+                          },
+                          {
+                            "label": "有序集合（Sort Set）",
+                            "value": "SortSet"
+                          },
+                          {
+                            "label": "哈希（Hash）",
+                            "value": "Hash"
+                          }
+                        ],
+                        "value": "String"
+                      },
+                      {
+                        "type": "input-text",
+                        "label": "链接地址",
+                        "name":"server_ip_port"
+                      },
+                    {
+                      "type": "input-password",
+                      "label": "Auth密码",
+                        "name":"server_pwd"
+                    },
+                    {
+                      "name": "key_desc",
+                      "label": "用途",
+                      "type": "input-text"
+                    }
+                  ]
+                }
+              },
+              "id": "u:0f98ef764c47"
+            },
+            {
+              "type": "button",
+              "label": "删除",
+              "actionType": "ajax",
+              "level": "link",
+              "className": "text-danger",
+              "confirmText": "确定要删除？",
+              "api":  {
+                "method": "post",
+                "url": "/system/sendReq.html",
+                "requestAdaptor": "",
+                "adaptor": "",
+                "messages": {},
+                "dataType": "json",
+                "data": {
+                  "&": "$$",
+                  "method": "post",
+                  "api":"/api/keymage/del",
+                  "nodeid":"${nodeid}",
+                  "ids":"${id}"
+                }
+              },
+              "editorSetting": {
+                "behavior": "delete"
+              },
+              "id": "u:8c3d93d5d733"
+            },
+            {
+                "type": "button-group",
+                "buttons": [
+                  {
+                    "type": "button",
+                    "label": "队列长度",
+                    "onEvent": {
+                      "click": {
+                        "actions": []
+                      }
+                    },
+                    "id": "u:a79950267b7b",
+                    "level": "link",
+                    "visibleOn": "${key_type=='List'}"
+                  },
+                  {
+                    "type": "button",
+                    "label": "删除键",
+                    "onEvent": {
+                      "click": {
+                        "actions": []
+                      }
+                    },
+                    "id": "u:3e7e8deca82c",
+                    "level": "link"
+                  },
+                  {
+                    "type": "button",
+                    "label": "查看",
+                    "id": "u:26ebf7275076",
+                    "level": "link",
+                    "visibleOn": "${key_type=='String'}"
+                  }
+                ],
+                "id": "u:4b3b4fbb7651"
+              }
+          ],
+          "id": "u:a786fd1d9a4b"
+        }
+      ],
+      "bulkActions": [
+        {
+          "type": "button",
+          "level": "danger",
+          "label": "批量删除",
+          "actionType": "ajax",
+          "confirmText": "确定要删除？",
+          "api":  {
+            "method": "post",
+            "url": "/system/sendReq.html",
+            "requestAdaptor": "",
+            "adaptor": "",
+            "messages": {},
+            "dataType": "json",
+            "data": {
+              "&": "$$",
+              "method": "post",
+              "api":"/api/keymage/del",
+              "nodeid":"${nodeid}"
+            }
+          },
+          "editorSetting": {
+            "behavior": "bulkDelete"
+          },
+          "id": "u:2ae13e43c003"
+        }
+      ],
+      "itemActions": [],
+      "headerToolbar": [
+        {
+          "label": "新增",
+          "type": "button",
+          "actionType": "dialog",
+          "level": "primary",
+          "editorSetting": {
+            "behavior": "create"
+          },
+          "dialog": {
+            "title": "新增",
+            "body": {
+              "type": "form",
+              "api":  {
+                "method": "post",
+                "url": "/system/sendReq.html",
+                "requestAdaptor": "",
+                "adaptor": "",
+                "messages": {},
+                "dataType": "json",
+                "data": {
+                  "&": "$$",
+                  "method": "post",
+                  "api":"/api/keymage/add",
+                  "nodeid":"${nodeid}"
+                }
+              },
+              "body": [
+                {
+                  "type": "input-text",
+                  "name": "key_name",
+                  "label": "键名称"
+                },
+                {
+                    "type": "select",
+                    "name": "key_type",
+                    "label": "键类型",
+                    "id": "u:aee3ebb4a08a",
+                    "multiple": false,
+                    "options": [
+                      {
+                        "label": "字符串（String）",
+                        "value": "String"
+                      },
+                      {
+                        "label": "列表（List）",
+                        "value": "List"
+                      },
+                      {
+                        "label": "集合（Set）",
+                        "value": "Set"
+                      },
+                      {
+                        "label": "有序集合（Sort Set）",
+                        "value": "SortSet"
+                      },
+                      {
+                        "label": "哈希（Hash）",
+                        "value": "Hash"
+                      }
+                    ],
+                    "value": "String"
+                  },
+                  {
+                    "type": "input-text",
+                    "label": "链接地址",
+                    "name":"server_ip_port"
+                  },
+                {
+                  "type": "input-password",
+                  "label": "Auth密码",
+                    "name":"server_pwd"
+                },
+                {
+                  "type": "input-text",
+                  "name": "key_desc",
+                  "label": "用途"
+                }
+              ]
+            }
+          },
+          "id": "u:3b2584e17cd5"
+        },
+        "bulkActions"
+      ],
+      "id": "u:32b443c41fc3",
+      "perPageAvailable": [
+        10
+      ],
+      "messages": {},
+      "filter": {
+        "title": "查询条件",
+        "body": [
+          {
+            "type": "input-text",
+            "label": "键名",
+            "name": "key_name",
+            "id": "u:5c485202361d"
+          },
+          {
+            "type": "input-text",
+            "label": "描述",
+            "name": "key_desc",
+            "id": "u:e447fe143fd5"
+          },
+          {
+            "type": "select",
+            "label": "类型",
+            "name": "key_type",
+            "options": [
+              {
+                "label": "字符串（String）",
+                "value": "String"
+              },
+              {
+                "label": "列表（List）",
+                "value": "List"
+              },
+              {
+                "label": "集合（Set）",
+                "value": "Set"
+              },
+              {
+                "label": "有序集合（Sort Set）",
+                "value": "SortSet"
+              },
+              {
+                "label": "哈希（Hash）",
+                "value": "Hash"
+              }
+            ],
+            "id": "u:ed20c9d62540",
+            "multiple": false
+          }
+        ],
+        "id": "u:3ac9a5e9a425",
+        "actions": [
+          {
+            "type": "submit",
+            "label": "搜索",
+            "primary": true,
+            "id": "u:146ba893d874"
+          }
+        ],
+        "feat": "Insert"
+      }
+    }
+  ],
+  "pullRefresh": {
+    "disabled": true
+  },
+  "toolbar": [],
+  "regions": [
+    "body",
+    "header"
+  ],
+  "subTitle": "提供统一Redis管理功能，避免大量Redis键名导致后期维护困难"
+}

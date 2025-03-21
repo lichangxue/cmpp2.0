@@ -1,0 +1,559 @@
+{
+    "type": "page",
+    "title": "用户列表",
+    "body": [
+      {
+        "type": "crud",
+        "syncLocation": false,
+        "api": {
+          "method": "post",
+          "url": "/system/sendReq.html",
+          "requestAdaptor": "",
+          "adaptor": "",
+          "messages": {},
+          "dataType": "json",
+          "data": {
+            "&": "$$",
+            "api": "/api/users/userList",
+            "method": "post"
+          }
+        },
+        "columns": [
+          {
+            "name": "id",
+            "label": "ID",
+            "type": "text",
+            "id": "u:215a8ba430f7"
+          },
+          {
+            "name": "username",
+            "label": "用户名",
+            "type": "text",
+            "id": "u:ca6795a5dc77"
+          },
+          {
+            "type": "text",
+            "label": "角色",
+            "name": "roleName",
+            "id": "u:c795a5dc77"
+          },
+          {
+            "type": "mapping",
+            "label": "用户状态",
+            "name": "userstatus",
+            "id": "u:4d8417d82c7f",
+            "map": {
+              "1": "正常",
+              "2": "封禁",
+              "*": "通配值"
+            }
+          },
+          {
+            "type": "text",
+            "label": "手机号",
+            "name": "mobile",
+            "id": "u:b71987586537"
+          },
+          {
+            "type": "text",
+            "label": "所属部门",
+            "name": "departmentName",
+            "id": "u:7d299d5163e1"
+          },
+          {
+            "type": "text",
+            "label": "Email",
+            "name": "email",
+            "id": "u:39bc8dca84a0"
+          },
+          {
+            "type": "text",
+            "label": "真实姓名",
+            "name": "realname",
+            "id": "u:e07292c58ddd"
+          },
+          {
+            "type": "image",
+            "label": "头像",
+            "name": "avatar",
+            "id": "u:3ddd689a9bf4"
+          },
+          {
+            "type": "date",
+            "label": "封禁时间",
+            "name": "bantime",
+            "id": "u:6514922d2b35",
+            "format": "YYYY-MM-DD HH:mm:ss"
+          },
+          {
+            "type": "date",
+            "label": "创建时间",
+            "name": "create_at",
+            "id": "u:90726d91c543",
+            "format": "YYYY-MM-DD HH:mm:ss"
+          },
+          {
+            "type": "text",
+            "label": "创建者",
+            "id": "u:9a8d57881a1c",
+            "name": "creator"
+          },
+          {
+            "type": "operation",
+            "label": "操作",
+            "buttons": [
+              {
+                "label": "编辑",
+                "type": "button",
+                "actionType": "dialog",
+                "level": "link",
+                "editorSetting": {
+                  "behavior": "update"
+                },
+                "dialog": {
+                  "title": "编辑",
+                  "body": {
+                    "type": "form",
+                    "api": {
+                      "url": "/system/sendReq.html",
+                      "method": "post",
+                      "requestAdaptor": "",
+                      "adaptor": "",
+                      "messages": {},
+                      "dataType": "json",
+                      "data": {
+                        "&": "$$",
+                        "api": "/api/users/mod",
+                        "method": "post"
+                      }
+                    },
+                    "body": [
+                      {
+                        "name": "id",
+                        "label": "ID",
+                        "type": "input-text",
+                        "id": "u:f846c3909ee7",
+                        "readOnly": false,
+                        "hidden": true
+                      },
+                      {
+                        "name": "username",
+                        "label": "用户名",
+                        "type": "input-text",
+                        "id": "u:5ccc6608a219",
+                        "required": true,
+                        "validations": {
+                          "isAlpha": true
+                        }
+                      },
+                      {
+                        "label": "用户状态",
+                        "name": "userstatus",
+                        "type": "select",
+                        "id": "u:00b7365d4ede",
+                        "multiple": false,
+                        "options": [
+                          {
+                            "label": "正常",
+                            "value": "1"
+                          },
+                          {
+                            "label": "封禁",
+                            "value": "2"
+                          }
+                        ],
+                        "value": "1"
+                      },
+                      {
+                        "label": "手机号",
+                        "name": "mobile",
+                        "type": "input-text",
+                        "id": "u:15aaa6e32777",
+                        "required": true,
+                        "validations": {
+                          "isPhoneNumber": true
+                        }
+                      },
+                      {
+                        "type": "input-tree",
+                        "label": "所属部门",
+                        "name": "departmentid",
+                        "id": "u:563950079ab8",
+                        "multiple": false,
+                        "enableNodePath": false,
+                        "hideRoot": true,
+                        "showIcon": true,
+                        "initiallyOpen": true,
+                        "source": {
+                          "url": "/system/sendReq.html",
+                          "method": "post",
+                          "requestAdaptor": "",
+                          "adaptor": "",
+                          "messages": {},
+                          "dataType": "json",
+                          "data": {
+                            "&": "$$",
+                            "api": "/api/departments/getAllDepartments?nodeid=${nodeid}",
+                            "method": "get"
+                          }
+                        }
+                      },
+                      {
+                        "type": "list-select",
+                        "label": "业务系统",
+                        "name": "nodeids",
+                        "id": "u:2731f7c35f2e",
+                        "multiple": true,
+                        "source": {
+                          "url": "/system/sendReq.html",
+                          "method": "post",
+                          "requestAdaptor": "",
+                          "messages": {},
+                          "dataType": "json",
+                          "data": {
+                            "&": "$$",
+                            "api": "/api/node/list",
+                            "method": "postjson",
+                            "model": {
+                              "name": ""
+                            },
+                            "pager": {
+                              "page": "1",
+                              "perPage": "1000"
+                            }
+                          }
+                        },
+                        "labelField": "name",
+                        "valueField": "id"
+                      },
+                      {
+                        "label": "Email",
+                        "name": "email",
+                        "type": "input-email",
+                        "id": "u:898a94f2d77e",
+                        "validations": {},
+                        "validationErrors": {}
+                      },
+                      {
+                        "label": "真实姓名",
+                        "name": "realname",
+                        "type": "input-text",
+                        "id": "u:d66d3ad546b1"
+                      },
+                      {
+                        "label": "角色",
+                        "name": "roleid",
+                        "type": "select",
+                        "id": "u:fdfc77a98eb4",
+                        "multiple": true,
+                        "source": {
+                          "url": "/system/sendReq.html",
+                          "method": "post",
+                          "requestAdaptor": "",
+                          "adaptor": "",
+                          "messages": {},
+                          "dataType": "json",
+                          "data": {
+                            "&": "$$",
+                            "api": "/api/roles/list",
+                            "method": "post"
+                          }
+                        },
+                        "value": "",
+                        "labelField": "name",
+                        "valueField": "id",
+                        "required": true,
+                        "checkAll": false
+                      },
+                      {
+                        "label": "用户头像",
+                        "name": "avatar",
+                        "type": "input-image",
+                        "id": "u:09f010761a",
+                        "autoUpload": true,
+                        "proxy": true,
+                        "uploadType": "fileReceptor",
+                        "imageClassName": "r w-full",
+                        "accept": ".jpeg, .jpg, .png, .gif",
+                        "multiple": false,
+                        "hideUploadButton": false,
+                        "frameImage": "https://src.axui.cn/v2.0/public/images/head01.jpg",
+                        "receiver": {
+                          "url": "/uploadtool/uploadfileforamis.html",
+                          "method": "post",
+                          "requestAdaptor": "",
+                          "adaptor": "",
+                          "messages": {},
+                          "dataType": "form-data"
+                        },
+                        "limit": false
+                      },
+                      {
+                        "label": "封禁到期时间",
+                        "name": "bantime",
+                        "type": "input-datetime",
+                        "id": "u:9583abf41f52",
+                        "placeholder": "请选择日期以及时间",
+                        "valueFormat": "X",
+                        "displayFormat": "YYYY-MM-DD HH:mm:ss",
+                        "minDate": "",
+                        "maxDate": "",
+                        "value": "",
+                        "description": "如果设置用户封禁，请设置封禁到期时间"
+                      }
+                    ],
+                    "id": "u:60ecbcfd2600",
+                    "actions": [
+                      {
+                        "type": "submit",
+                        "label": "提交",
+                        "primary": true
+                      }
+                    ],
+                    "feat": "Edit",
+                    "dsType": "api",
+                    "initApi": {
+                      "method": "post",
+                      "url": "/system/sendReq.html",
+                      "requestAdaptor": "",
+                      "adaptor": "",
+                      "messages": {},
+                      "dataType": "json",
+                      "data": {
+                        "api": "/api/users/get?id=${id}",
+                        "method": "get"
+                      }
+                    }
+                  }
+                },
+                "id": "u:ed65c283ddf0"
+              },
+              {
+                "type": "button",
+                "label": "删除",
+                "actionType": "ajax",
+                "level": "link",
+                "className": "text-danger",
+                "confirmText": "确定要删除？",
+                "api": {
+                  "method": "post",
+                  "url": "/system/sendReq.html",
+                  "requestAdaptor": "",
+                  "adaptor": "",
+                  "messages": {},
+                  "dataType": "json",
+                  "data": {
+                    "&": "$$",
+                    "api": "/api/users/del",
+                    "method": "post"
+                  }
+                },
+                "editorSetting": {
+                  "behavior": "delete"
+                },
+                "id": "u:13e1daf82a90"
+              }
+            ],
+            "id": "u:aeb274ac9293"
+          }
+        ],
+        "bulkActions": [],
+        "itemActions": [],
+        "headerToolbar": [
+          {
+            "label": "新增",
+            "type": "button",
+            "actionType": "dialog",
+            "level": "primary",
+            "editorSetting": {
+              "behavior": "create"
+            },
+            "dialog": {
+              "type": "dialog",
+              "title": "新增",
+              "body": [
+                {
+                  "type": "form",
+                  "api": {
+                    "method": "post",
+                    "url": "/system/sendReq.html",
+                    "requestAdaptor": "",
+                    "adaptor": "",
+                    "messages": {},
+                    "dataType": "json",
+                    "data": {
+                      "&": "$$",
+                      "api": "/api/users/add",
+                      "method": "post"
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "input-text",
+                      "name": "username",
+                      "label": "用户名",
+                      "id": "u:058899dee1e9",
+                      "required": true,
+                      "validations": {
+                        "isAlpha": true
+                      },
+                      "description": "只支持输入英文字母"
+                    },
+                    {
+                      "type": "select",
+                      "label": "角色",
+                      "name": "roleid",
+                      "id": "u:fdfc77a98eb4",
+                      "multiple": false,
+                      "source": {
+                        "url": "/system/sendReq.html",
+                        "method": "post",
+                        "requestAdaptor": "",
+                        "adaptor": "",
+                        "messages": {},
+                        "dataType": "json",
+                        "data": {
+                          "&": "$$",
+                          "api": "/api/roles/list",
+                          "method": "post"
+                        }
+                      },
+                      "value": "",
+                      "labelField": "name",
+                      "valueField": "id",
+                      "required": true
+                    },
+                    {
+                      "type": "input-image",
+                      "label": "用户头像",
+                      "name": "avatar",
+                      "autoUpload": true,
+                      "proxy": true,
+                      "uploadType": "fileReceptor",
+                      "imageClassName": "r w-full",
+                      "id": "u:09f05d10761a",
+                      "accept": ".jpeg, .jpg, .png, .gif",
+                      "multiple": false,
+                      "hideUploadButton": false,
+                      "frameImage": "https://src.axui.cn/v2.0/public/images/head01.jpg",
+                      "receiver": {
+                        "url": "/uploadtool/uploadfileforamis.html",
+                        "method": "post",
+                        "requestAdaptor": "",
+                        "adaptor": "",
+                        "messages": {},
+                        "dataType": "form-data"
+                      },
+                      "limit": false
+                    },
+                    {
+                      "type": "select",
+                      "name": "userstatus",
+                      "label": "用户状态",
+                      "id": "u:5ca33d0d102c",
+                      "multiple": false,
+                      "options": [
+                        {
+                          "label": "正常",
+                          "value": 1
+                        },
+                        {
+                          "label": "封禁",
+                          "value": 2
+                        }
+                      ],
+                      "value": 1,
+                      "required": true
+                    },
+                    {
+                      "type": "input-text",
+                      "name": "mobile",
+                      "label": "手机号",
+                      "id": "u:656c43f6515c",
+                      "required": true,
+                      "validations": {
+                        "isPhoneNumber": true
+                      }
+                    },
+                    {
+                      "type": "input-tree",
+                      "label": "所属部门",
+                      "name": "parentid",
+                      "id": "u:40b186fcb97f",
+                      "multiple": false,
+                      "enableNodePath": false,
+                      "hideRoot": true,
+                      "showIcon": true,
+                      "initiallyOpen": true,
+                      "source": {
+                        "url": "/system/sendReq.html",
+                        "method": "post",
+                        "requestAdaptor": "",
+                        "adaptor": "",
+                        "messages": {},
+                        "dataType": "json",
+                        "data": {
+                          "&": "$$",
+                          "api": "/api/departments/getAllDepartments?nodeid=${nodeid}",
+                          "method": "get"
+                        }
+                      }
+                    },
+                    {
+                      "type": "input-text",
+                      "name": "email",
+                      "label": "Email",
+                      "id": "u:7bcc64a4a7c5"
+                    },
+                    {
+                      "type": "input-text",
+                      "name": "realname",
+                      "label": "真实姓名",
+                      "id": "u:1b4be56d4a75"
+                    }
+                  ],
+                  "id": "u:330c47cb4c94",
+                  "actions": [
+                    {
+                      "type": "submit",
+                      "label": "提交",
+                      "primary": true
+                    }
+                  ],
+                  "feat": "Insert"
+                }
+              ],
+              "id": "u:d2b8fae6ade4",
+              "actions": [
+                {
+                  "type": "button",
+                  "actionType": "cancel",
+                  "label": "取消",
+                  "id": "u:f2ba7696f11f"
+                },
+                {
+                  "type": "button",
+                  "actionType": "confirm",
+                  "label": "确定",
+                  "primary": true,
+                  "id": "u:1195c1124b79"
+                }
+              ]
+            },
+            "id": "u:d8871c6f94bf"
+          },
+          "bulkActions"
+        ],
+        "id": "u:1d1dd20e3043",
+        "perPageAvailable": [
+          20
+        ],
+        "messages": {},
+        "interval": 3000,
+        "silentPolling": true,
+        "stopAutoRefreshWhenModalIsOpen": true,
+        "perPage": 20
+      }
+    ],
+    "id": "u:0210088e66ff"
+  }

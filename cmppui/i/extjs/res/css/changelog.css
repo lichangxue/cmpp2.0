@@ -1,0 +1,92 @@
+body {
+    background: #383b47;
+    font: 400 14px/1.6 "Microsoft YaHei",sans-serif;
+    color: #333;
+}
+div{
+    display: block;
+}
+ul, ol, li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.changelog-box{
+    background: #f5f5f5;
+    display: block;
+   /* padding: 2px 0;*/
+}
+.container {
+    background: #3a3c48 url(../img/content-bg.png);
+    margin: auto;
+    padding: 25px 40px 45px;
+    position: relative;
+}
+.cmpp-left-title {
+    /*color: #333444;*/
+    color: #58a6fb;
+    font-size: 24px;
+    padding-bottom: 30px;
+}
+.cmpp-left-log{
+    padding-bottom: 30px;
+}
+.log ol {
+    background: url(../img/timeline_meitu_2.jpg) repeat-y 228px 0;
+}
+.log ol li {
+    padding: 10px 0 10px 285px;
+    position: relative;
+}
+.log h2 {
+    font-weight: 400;
+    position: absolute;
+    left: 0;
+    top: 10px;
+    text-align: right;
+    width: 180px;
+    font-size: 24px;
+    margin-right: 105px;
+    color: #58a6fb;
+}
+.log .news{
+    color: #ff5500;
+}
+.log h2 em{
+    background: url(../img/circle.png) no-repeat ;
+}
+.log h2 em, .log .cmpp-log-detail em {
+    display: inline-block;
+    position: absolute;
+}
+.log h2 em {
+    width: 30px;
+    height: 30px;
+    right: -65px;
+    top: 0;
+    z-index: 100;
+}
+.log .cmpp-log-detail {
+    border: 1px solid #9d9d9d;
+    position: relative;
+    background: #383b47;
+    padding: 10px 15px;
+    color: #63d029;
+}
+.log .cmpp-log-detail em {
+     width: 17px;
+     height: 26px;
+     background: url(../img/sprites1.jpg) no-repeat -150px -36px;
+     left: -17px;
+     _left: -32px;
+     top: 20px;
+ }
+.log ol ul li {
+    padding: 2px 0;
+}
+
+.img-box{
+    padding-left: 15px;
+    padding-top: 10px;
+}
+.img-box img{width: 650px; height: 300px}

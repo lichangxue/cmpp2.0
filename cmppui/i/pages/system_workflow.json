@@ -1,0 +1,323 @@
+{
+    "type": "page",
+    "title": "脚本流程",
+    "id": "u:9b241a1a64db",
+    "asideResizor": false,
+    "body": [
+      {
+        "type": "crud",
+        "syncLocation": false,
+        "api": {
+          "method": "post",
+          "url": "/system/sendReq.html",
+          "requestAdaptor": "",
+          "adaptor": "",
+          "messages": {},
+          "dataType": "json",
+          "data": {
+            "&": "$$",
+            "nodeid": "${nodeid}",
+            "api":"/api/workflow/list",
+            "method":"postjson"
+          }
+        },
+        "columns": [
+          {
+            "name": "id",
+            "label": "ID",
+            "type": "text",
+            "id": "u:415bc68544f1"
+          },
+          {
+            "name": "processTitle",
+            "label": "脚本名称",
+            "type": "text",
+            "id": "u:10c1eda70791"
+          },
+          {
+            "type": "text",
+            "label": "创建者",
+            "name": "creator",
+            "id": "u:663b0971826b"
+          },
+          {
+            "type": "text",
+            "label": "创建时间",
+            "name": "createTime",
+            "id": "u:735fd3697937"
+          },
+          {
+            "type": "text",
+            "label": "最后修改时间",
+            "name": "recentModifyTime",
+            "id": "u:335653791928"
+          },
+          {
+            "type": "mapping",
+            "label": "状态",
+            "name": "status",
+            "id": "u:937ca7f95f3f",
+            "map": {
+              "1": "<span class='label label-success'>上线</span>",
+              "*": "<span class='label bg-dark'>下线</span>",
+              "-1": "<span class='label bg-dark'>下线</span>"
+            }
+          },
+          {
+            "type": "operation",
+            "label": "操作",
+            "buttons": [
+              {
+                "label": "编辑",
+                "type": "button",
+                "actionType": "url",
+                "level": "link",
+                "editorSetting": {
+                  "behavior": "update"
+                },
+                "id": "u:58851dd9bdad",
+                "url": "/main/workflow.html?nodeid=${nodeid}&id=${id}"
+              },
+              {
+                "type": "button",
+                "label": "上线",
+                "onEvent": {
+                  "click": {
+                    "actions": [
+                      {
+                        "ignoreError": false,
+                        "outputVar": "responseResult",
+                        "actionType": "ajax",
+                        "options": {},
+                        "api": {
+                          "url": "/system/sendReq.html",
+                          "method": "post",
+                          "requestAdaptor": "",
+                          "adaptor": "",
+                          "messages": {},
+                          "dataType": "json",
+                          "data": {
+                            "method": "post",
+                            "api": "/api/workflow/enableOrDisableProcess",
+                            "nodeid": "${nodeid}",
+                            "id": "${id}",
+                            "status": 1
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "id": "u:24564d6a57c0",
+                "level": "link"
+              },
+              {
+                "type": "button",
+                "label": "下线",
+                "onEvent": {
+                  "click": {
+                    "actions": [
+                      {
+                        "ignoreError": false,
+                        "outputVar": "responseResult",
+                        "actionType": "ajax",
+                        "options": {},
+                        "api": {
+                          "url": "/system/sendReq.html",
+                          "method": "post",
+                          "requestAdaptor": "",
+                          "adaptor": "",
+                          "messages": {},
+                          "dataType": "json",
+                          "data": {
+                            "method": "post",
+                            "api": "/api/workflow/enableOrDisableProcess",
+                            "nodeid": "${nodeid}",
+                            "id": "${id}",
+                            "status": -1
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "id": "u:e8ec67212ebb",
+                "level": "link"
+              },
+              {
+                "type": "button",
+                "label": "查看日志",
+                "onEvent": {
+                  "click": {
+                    "actions": [
+                      {
+                        "ignoreError": false,
+                        "actionType": "url",
+                        "args": {
+                          "url": "/main/pageContent.html?id=59&nodeid=${nodeid}&id1=${id}&id2=&stype=process&tpl=&scope="
+                        }
+                      }
+                    ]
+                  }
+                },
+                "id": "u:1db1cb0a5732",
+                "level": "link"
+              },
+              {
+                "type": "button",
+                "label": "调用者",
+                "onEvent": {
+                  "click": {
+                    "actions": [
+                      {
+                        "ignoreError": false,
+                        "actionType": "dialog",
+                        "args": {},
+                        "dialog": {
+                          "type": "dialog",
+                          "title": "流程调用监控",
+                          "body": [
+                            {
+                              "type": "crud",
+                              "syncLocation": false,
+                              "api": {
+                                "method": "post",
+                                "url": "/system/sendReq.html",
+                                "requestAdaptor": "",
+                                "adaptor": "",
+                                "messages": {},
+                                "dataType": "json",
+                                "data": {
+                                  "&": "$$",
+                                  "api": "/api/workflow/queryProcessInstance",
+                                  "method": "postjson",
+                                  "nodeid": "${nodeid}",
+                                  "id": "${id}"
+                                }
+                              },
+                              "columns": [
+                                {
+                                  "name": "id",
+                                  "label": "ID",
+                                  "type": "text",
+                                  "id": "u:0ca232f9e1ed"
+                                },
+                                {
+                                  "name": "engine",
+                                  "label": "调用者",
+                                  "type": "text",
+                                  "id": "u:83acdd25857c"
+                                },
+                                {
+                                  "type": "text",
+                                  "label": "NodeId",
+                                  "name": "nodeid",
+                                  "id": "u:04be1eb88ede"
+                                },
+                                {
+                                  "type": "text",
+                                  "label": "FormId",
+                                  "name": "formId",
+                                  "id": "u:75eeb15eadaa"
+                                },
+                                {
+                                  "type": "text",
+                                  "label": "id",
+                                  "name": "articleId",
+                                  "id": "u:34b4cec30d07"
+                                },
+                                {
+                                  "type": "text",
+                                  "label": "开始执行时间",
+                                  "name": "processStartDate",
+                                  "id": "u:b100d0688375"
+                                },
+                                {
+                                  "type": "text",
+                                  "label": "状态",
+                                  "name": "state",
+                                  "id": "u:0e9eabeba4c4"
+                                },
+                                {
+                                  "type": "text",
+                                  "label": "描述",
+                                  "name": "instanceDesc",
+                                  "id": "u:b37fe925bf8a"
+                                }
+                              ],
+                              "bulkActions": [],
+                              "itemActions": [],
+                              "id": "u:23b6d4725bbc"
+                            }
+                          ],
+                          "showCloseButton": true,
+                          "showErrorMsg": true,
+                          "showLoading": true,
+                          "className": "app-popover :AMISCSSWrapper",
+                          "actions": [
+                            {
+                              "type": "button",
+                              "actionType": "cancel",
+                              "label": "取消",
+                              "id": "u:245578569a39"
+                            },
+                            {
+                              "type": "button",
+                              "actionType": "confirm",
+                              "label": "确认",
+                              "primary": true,
+                              "id": "u:a3e9ced06486"
+                            }
+                          ],
+                          "id": "u:b5b87ed84f34",
+                          "closeOnOutside": false,
+                          "closeOnEsc": false,
+                          "draggable": false,
+                          "size": "lg"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "id": "u:8790cccca36e",
+                "level": "link"
+              }
+            ],
+            "id": "u:c2f180e5ed91"
+          }
+        ],
+        "bulkActions": [],
+        "itemActions": [],
+        "headerToolbar": [
+          {
+            "label": "新建流程",
+            "type": "button",
+            "actionType": "url",
+            "level": "primary",
+            "editorSetting": {
+              "behavior": "create"
+            },
+            "id": "u:6cc6729111fb",
+            "url": "/main/workflow.html?nodeid=${nodeid}"
+          },
+          {
+            "type": "bulk-actions"
+          }
+        ],
+        "id": "u:2c0f98e3f78a",
+        "perPageAvailable": [
+          10
+        ],
+        "messages": {}
+      }
+    ],
+    "pullRefresh": {
+      "disabled": true
+    },
+    "toolbar": [],
+    "regions": [
+      "body",
+      "header"
+    ],
+    "subTitle": "处理复杂业务流程脚本"
+  }

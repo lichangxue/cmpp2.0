@@ -1,0 +1,196 @@
+<?php if(!class_exists("View", false)) exit("no direct access allowed");?>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CMPP2.0 - 内容管理发布平台</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="/i/layui/layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="/i/layui/layuiadmin/style/admin.css" media="all">
+</head>
+<body class="layui-layout-body">
+  
+  <div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+      <!-- 顶部区域 -->>
+      <div class="layui-header">
+        <!-- 头部区域 -->
+        <ul class="layui-nav layui-layout-left">
+          <li class="layui-nav-item layadmin-flexible" lay-unselect>
+            <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+              <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+            </a>
+          </li>
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="//fm.renbenzhihui.com" target="_blank" title="前台">
+              <i class="layui-icon layui-icon-website"></i>
+            </a>
+          </li>
+          <li class="layui-nav-item" lay-unselect>
+            <a href="javascript:;" layadmin-event="refresh" title="刷新">
+              <i class="layui-icon layui-icon-refresh-3"></i>
+            </a>
+          </li>
+          <!--全局搜索-->
+          <!--<li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search" layadmin-event="serach" lay-action="template/search.html?keywords="> 
+          </li>-->
+        </ul>
+        <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+          
+          <li class="layui-nav-item" lay-unselect>
+            <a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
+              <i class="layui-icon layui-icon-notice"></i>                
+              <!-- 如果有新消息，则显示小圆点 -->
+              <?php if ($dot) : ?><span class="layui-badge-dot"></span><?php endif; ?>
+            </a>
+          </li>
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="javascript:;" layadmin-event="theme">
+              <i class="layui-icon layui-icon-theme"></i>
+            </a>
+          </li>
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="javascript:;" layadmin-event="note">
+              <i class="layui-icon layui-icon-note"></i>
+            </a>
+          </li>
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="javascript:;" layadmin-event="fullscreen">
+              <i class="layui-icon layui-icon-screen-full"></i>
+            </a>
+          </li>
+          <li class="layui-nav-item" lay-unselect>
+            <a href="javascript:;">
+              <cite><?php if ($userInfo['realname']) : ?><?php echo htmlspecialchars($userInfo['realname'], ENT_QUOTES, "UTF-8"); ?><?php else : ?><?php echo htmlspecialchars($userInfo['username'], ENT_QUOTES, "UTF-8"); ?><?php endif; ?></cite>
+            </a>
+            <dl class="layui-nav-child">
+              <dd><a lay-href="set/user/info.html">基本资料</a></dd>
+              <dd><a lay-href="set/user/password.html">修改密码</a></dd>
+              <hr>
+              <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
+            </dl>
+          </li>
+          
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>
+          </li>
+          <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>
+            <a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- 侧边菜单 -->
+      <div class="layui-side layui-side-menu">
+        <div class="layui-side-scroll">
+          <div class="layui-logo" lay-href="<?php echo url(array('c'=>"main", 'a'=>"welcome", ));?>?nodeid=<?php echo htmlspecialchars($nodeid, ENT_QUOTES, "UTF-8"); ?>">
+            <span><img src="https://p1.renbenzhihui.com/cmpp2/logo.png" /></span>
+          </div>
+          
+          <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+            <?php if(!empty($res_menus)){ $_foreach_menu_counter = 0; $_foreach_menu_total = count($res_menus);?><?php foreach( $res_menus as $menu ) : ?><?php $_foreach_menu_index = $_foreach_menu_counter;$_foreach_menu_iteration = $_foreach_menu_counter + 1;$_foreach_menu_first = ($_foreach_menu_counter == 0);$_foreach_menu_last = ($_foreach_menu_counter == $_foreach_menu_total - 1);$_foreach_menu_counter++;?>
+              <li data-name="menu_<?php echo htmlspecialchars($menu['id'], ENT_QUOTES, "UTF-8"); ?>" class="layui-nav-item<?php if ($_foreach_menu_first == true) : ?> layui-nav-itemed<?php endif; ?>">
+                <a href="javascript:;" lay-tips="<?php echo htmlspecialchars($menu['title'], ENT_QUOTES, "UTF-8"); ?>" lay-direction="2">
+                  <i class="layui-icon <?php echo htmlspecialchars($menu['icon'], ENT_QUOTES, "UTF-8"); ?>"></i>
+                  <cite><?php echo htmlspecialchars($menu['title'], ENT_QUOTES, "UTF-8"); ?></cite>
+                </a>
+                <?php if ($menu['children']) : ?>
+                <dl class="layui-nav-child">
+                  <?php if(!empty($menu['children'])){ $_foreach_child_counter = 0; $_foreach_child_total = count($menu['children']);?><?php foreach( $menu['children'] as $child ) : ?><?php $_foreach_child_index = $_foreach_child_counter;$_foreach_child_iteration = $_foreach_child_counter + 1;$_foreach_child_first = ($_foreach_child_counter == 0);$_foreach_child_last = ($_foreach_child_counter == $_foreach_child_total - 1);$_foreach_child_counter++;?>
+                    <dd data-name="console">
+                        <a lay-href="<?php if ($child['target'] == '_blank') : ?><?php echo htmlspecialchars($child['href'], ENT_QUOTES, "UTF-8"); ?>?nodeid=<?php echo htmlspecialchars($nodeid, ENT_QUOTES, "UTF-8"); ?><?php else : ?><?php echo url(array('c'=>"main", 'a'=>"pageContent", ));?>?id=<?php echo htmlspecialchars($child['id'], ENT_QUOTES, "UTF-8"); ?>&nodeid=<?php echo htmlspecialchars($nodeid, ENT_QUOTES, "UTF-8"); ?><?php endif; ?>">
+                            <?php echo htmlspecialchars($child['title'], ENT_QUOTES, "UTF-8"); ?>
+                        </a>
+                    </dd>
+                  <?php endforeach; }?>                  
+                </dl>
+                <?php endif; ?>
+              </li>
+            <?php endforeach; }?>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 页面标签 -->
+      <div class="layadmin-pagetabs" id="LAY_app_tabs">
+        <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
+        <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
+        <div class="layui-icon layadmin-tabs-control layui-icon-down">
+          <ul class="layui-nav layadmin-tabs-select" lay-filter="layadmin-pagetabs-nav">
+            <li class="layui-nav-item" lay-unselect>
+              <a href="javascript:;"></a>
+              <dl class="layui-nav-child layui-anim-fadein">
+                <dd layadmin-event="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
+                <dd layadmin-event="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
+                <dd layadmin-event="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
+              </dl>
+            </li>
+          </ul>
+        </div>
+        <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
+          <ul class="layui-tab-title" id="LAY_app_tabsheader">
+            <li lay-id="home/console.html" lay-attr="home/console.html" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+          </ul>
+        </div>
+      </div>
+      
+      
+      <!-- 主体内容 Iframe方式加载勿动-->
+      <div class="layui-body" id="LAY_app_body">
+        <div class="layadmin-tabsbody-item layui-show">
+          <iframe src="<?php echo url(array('c'=>"main", 'a'=>"welcome", ));?>?nodeid=<?php echo htmlspecialchars($nodeid, ENT_QUOTES, "UTF-8"); ?>" frameborder="0" class="layadmin-iframe"></iframe>
+        </div>
+      </div>
+      
+      <!-- 辅助元素，一般用于移动设备下遮罩 -->
+      <div class="layadmin-body-shade" layadmin-event="shade"></div>
+    </div>
+  </div>
+
+  <script src="/i/layui/layuiadmin/layui/layui.js"></script>
+  <script src="/i/public/js/jquery-3.7.1.min.js" charset="utf-8"></script>
+  <script src="/i/public/js/jquery.cookie.js" charset="utf-8"></script>  
+  <script>
+  layui.config({
+    base: '/i/layui/layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index'],function(){
+    var $ = layui.$
+    ,admin = layui.admin
+    ,element = layui.element
+    ,layer = layui.layer;
+
+    admin.events.logout = function(){
+      $.ajax({
+          url: '<?php echo url(array('c'=>"system", 'a'=>"sendReq", ));?>', // 设置请求URL
+          type: "POST", // 指定请求类型为POST
+          dataType: "json", // 设置返回数据格式为JSON
+          contentType: 'application/json', // 设置请求头中Content-Type字段值为'application/json'
+          data: JSON.stringify({"api":"/api/auth/logout","method":"get"}), // 将要发送的数据转换成JSON字符串并作为参数传递
+          success: function (response) {
+              if(response.status/1 == 0){
+                  $.cookie('cmpp_sessionid', '', { path: '/' });
+                  $.cookie('cmpp_token', '', { path: '/' });
+                  $.cookie('cmpp_user', '', { path: '/' });
+              }
+              location.href='<?php echo url(array('c'=>"login", 'a'=>"index", ));?>';
+          },
+          error: function () {
+              location.href='<?php echo url(array('c'=>"login", 'a'=>"index", ));?>';
+          }
+      });
+    }
+
+
+  });
+  </script>
+  
+</body>
+</html>
+
+
